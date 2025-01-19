@@ -8,7 +8,7 @@ def Send():
     print('Ты нажал на кнопку "Send"')
 
 def Output(event):
-    print(f'You entered: {entry.get()}')
+    output['text'] = f'You entered: {entry.get()}'
 
 root = tk.Tk()
 
@@ -19,11 +19,14 @@ root.iconbitmap('E:\Projects\MyPyhtonProjects\8Ball (Tkinter)\8ball.ico')
 root.geometry('800x500+600+300')
 root.resizable(False, False)
 
-label = tk.Label(root, text="Ask your question", font=('Roboto Mono Light', 18))
+label = tk.Label(text="Ask your question", font=('Roboto Mono Light', 18))
 label.pack(padx=20, pady=20)
 
-entry = ttk.Entry(width=125)
-entry.pack(side='bottom', pady=10)
+output = tk.Label(relief='groove', font=('Roboto Mono Light', 14))
+output.pack(expand=1, padx=10, fill='both')
+
+entry = ttk.Entry()
+entry.pack(side='bottom', pady=10, fill='x', padx=10)
 entry.bind("<Return>", Output)
 
 # Textbox
