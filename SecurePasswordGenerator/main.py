@@ -1,7 +1,16 @@
 import tkinter as tk
-from tkinter import IntVar, StringVar, ttk
+from tkinter import ttk
 import random as r
-import re
+
+def check_input(event):
+    try:
+        value = int(entry_len.get())
+        if value > 0:
+            generate_btn.config(state=tk.ACTIVE)
+        else:
+            generate_btn.config(state=tk.DISABLED)
+    except ValueError:
+        generate_btn.config(state=tk.DISABLED)
 
 def set_elements():
     global chars
@@ -38,53 +47,54 @@ cnt = 0
 
 root = tk.Tk()
 root.title('SPG')
-root.geometry('500x500+700+300')
+root.geometry('+700+300')
 root.iconphoto(False, tk.PhotoImage(file = 'E:\Projects\MyPyhtonProjects\SecurePasswordGenerator\icons\key32.png'))
 
 text1 = ttk.Label(text='Enter the number of passwords')
 text2 = ttk.Label(text='Enter the password length')
 text3 = ttk.Label(text='Password must contain: ')
 
-chars = StringVar()
+chars = tk.StringVar()
 
 pass_cnt = ttk.Entry()
 
 entry_len = ttk.Entry()
+entry_len.bind("<KeyRelease>", check_input)
 entry_len.grid(row=1, column=1, sticky='w')
 
-digits_enabled = IntVar()
+digits_enabled = tk.IntVar()
 digit_checkbutton = ttk.Checkbutton(text='0123456789', variable=digits_enabled, command=set_elements)
 digit_checkbutton.grid(row='3', column='0', sticky='w')
 
-uppercase_letters_enabled = IntVar()
+uppercase_letters_enabled = tk.IntVar()
 uppercase_letters_checkbutton = ttk.Checkbutton(text='ABCDEFEFGHIJKLMNOPQRSTUVWXYZ', variable=uppercase_letters_enabled, command=set_elements)
 uppercase_letters_checkbutton.grid(row='4', column='0', sticky='w')
 
-lowercase_letters_enabled = IntVar()
+lowercase_letters_enabled = tk.IntVar()
 lowercase_letters_checkbutton = ttk.Checkbutton(text='abcdefghijklmnopqrstuvwxyz', variable=lowercase_letters_enabled, command=set_elements)
 lowercase_letters_checkbutton.grid(row='5', column='0', sticky='w')
 
-punctuation_checkbutton_enabled = IntVar()
+punctuation_checkbutton_enabled = tk.IntVar()
 punctuation_checkbutton = ttk.Checkbutton(text='!#$%&*+-=?@^_', variable=punctuation_checkbutton_enabled, command=set_elements)
 punctuation_checkbutton.grid(row='6', column='0', sticky='w')
 
-ambiguous_characters_checkbutton_enabled = IntVar()
+ambiguous_characters_checkbutton_enabled = tk.IntVar()
 ambiguous_characters_checkbutton = ttk.Checkbutton(text='Exclude ambiguous characters? (il1Lo0O)', variable=ambiguous_characters_checkbutton_enabled, command=set_elements)
 ambiguous_characters_checkbutton.grid(row='7', column='0', sticky='w')
 
-generate_btn = ttk.Button(text='Generate', command=generate_password)
+generate_btn = ttk.Button(text='Generate', state=tk.DISABLED, command=generate_password)
 generate_btn.bind()
 generate_btn.grid(row=8, column=0)
 
 password_output = ttk.Label()
 password_output.grid(row=9, column=0, sticky='w')
 
+entry = tk.Entry()
+entry.config(state="readonly")
+
 text1.grid(row=0, column=0, sticky='w')
 text2.grid(row=1, column=0, sticky='w')
 pass_cnt.grid(row=0, column=1, sticky='w')
 text3.grid(row=2, column=0, sticky='w')
-
-
-
 
 root.mainloop()
