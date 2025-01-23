@@ -1,15 +1,20 @@
 import tkinter as tk
 
-def create_interface():
-    root = tk.Tk()
-    root.title("Копируемый текст")
+root = tk.Tk()
 
-    # Создаем виджет Entry
-    entry = tk.Entry(root, width=40)
-    entry.insert(0, "Это однострочный текст для копирования.")
-    entry.config(state="readonly")  # Делаем его только для чтения
-    entry.pack(pady=10)
+label_text = tk.StringVar()
+label = tk.Label(textvariable=label_text)
+label.pack()
 
-    root.mainloop()
+def update():
+    text = label_text.get()
+    if not text:
+        text = 'base'
+    else:
+        text += '.'
+    label_text.set(text)
 
-create_interface()
+b = tk.Button(root, text='update', command=update)
+b.pack()
+
+root.mainloop()
