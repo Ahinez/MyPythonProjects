@@ -44,6 +44,7 @@ def generate_password():
     password = ''
     for el in range(int(entry_len.get())):
         password += r.choice(chars)
+    password_output.grid(row=9, column=0, sticky='w')
     password_output['text'] = f'Password: {password}'
     copy_btn = ttk.Button(text='Copy', command=clipboard)
     copy_btn.grid(row=9, column=1)
@@ -99,11 +100,10 @@ generate_btn = ttk.Button(text='Generate', state=tk.DISABLED, command=generate_p
 generate_btn.bind()
 generate_btn.grid(row=8, column=0)
 
-password_output = ttk.Label()
-password_output.grid(row=9, column=0, sticky='w')
-
 entry = tk.Entry()
 entry.config(state="readonly")
+
+password_output = ttk.Label()
 
 text2.grid(row=1, column=0, sticky='w')
 text3.grid(row=2, column=0)
