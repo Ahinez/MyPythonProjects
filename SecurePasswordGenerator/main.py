@@ -45,12 +45,19 @@ def generate_password():
     for el in range(int(entry_len.get())):
         password += r.choice(chars)
     password_output['text'] = f'Password: {password}'
+    copy_btn = ttk.Button(text='Copy', command=clipboard)
+    copy_btn.grid(row=9, column=1)
+
+def clipboard():
+    global password
+    root.clipboard_clear()
+    root.clipboard_append(password)
+    password_output['text'] = 'Password copied to clipboard'
 
 digits = "0123456789"
 lowercase_letters = 'abcdefghijklmnopqrstuvwxyz'
 uppercase_letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 punctuation = '!#$%&*+-=?@^'
-cnt = 0
 
 root = tk.Tk()
 root.title('SPG')
@@ -62,8 +69,6 @@ text2 = ttk.Label(text='Enter the password length')
 text3 = ttk.Label(text='Password must contain: ')
 
 chars = ''
-
-pass_cnt = ttk.Entry()
 
 entry_len = ttk.Entry()
 length = 0
@@ -100,9 +105,7 @@ password_output.grid(row=9, column=0, sticky='w')
 entry = tk.Entry()
 entry.config(state="readonly")
 
-text1.grid(row=0, column=0, sticky='w')
 text2.grid(row=1, column=0, sticky='w')
-pass_cnt.grid(row=0, column=1, sticky='w')
-text3.grid(row=2, column=0, sticky='w')
+text3.grid(row=2, column=0)
 
 root.mainloop()

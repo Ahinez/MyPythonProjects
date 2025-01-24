@@ -1,20 +1,30 @@
 import tkinter as tk
 
+def copy_to_clipboard():
+    # Получаем текст из текстового поля
+    text = text_entry.get()
+    # Очищаем буфер обмена
+    root.clipboard_clear()
+    # Добавляем текст в буфер обмена
+    root.clipboard_append(text)
+    # Сообщаем пользователю, что текст скопирован
+    status_label.config(text="Текст скопирован в буфер обмена!")
+
+# Создаем главное окно
 root = tk.Tk()
+root.title("Копирование текста в буфер обмена")
 
-label_text = tk.StringVar()
-label = tk.Label(textvariable=label_text)
-label.pack()
+# Создаем текстовое поле для ввода текста
+text_entry = tk.Entry(root, width=40)
+text_entry.pack(pady=10)
 
-def update():
-    text = label_text.get()
-    if not text:
-        text = 'base'
-    else:
-        text += '.'
-    label_text.set(text)
+# Создаем кнопку для копирования текста
+copy_button = tk.Button(root, text="Копировать", command=copy_to_clipboard)
+copy_button.pack(pady=10)
 
-b = tk.Button(root, text='update', command=update)
-b.pack()
+# Создаем метку для отображения статуса
+status_label = tk.Label(root, text="")
+status_label.pack(pady=10)
 
+# Запускаем главный цикл приложения
 root.mainloop()
